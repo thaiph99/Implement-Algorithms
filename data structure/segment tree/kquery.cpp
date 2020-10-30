@@ -9,7 +9,7 @@ using namespace std;
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
     cout.tie(0);
-
+const ll mod = 242521242533;
 const int nax = 3 * 1e4 + 1;
 int n, t[4 * nax], k, a[nax], m;
 
@@ -60,3 +60,15 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
+/*
+5
+5 1 2 3 4
+3
+2 4 1
+4 4 4
+1 5 2
+=> 
+2
+0
+3
+*/
