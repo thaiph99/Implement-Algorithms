@@ -15,7 +15,7 @@ ll n, x, ans, f[nax];
 ll getx(ll x)
 {
     ll res = 0;
-    for (ll i = x; i >= 1; i -= i & -i)
+    for (ll i = x; i >= 1; i += i & -i)
         res += f[i];
     return res;
 }

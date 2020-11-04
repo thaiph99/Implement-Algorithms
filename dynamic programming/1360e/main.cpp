@@ -9,14 +9,14 @@ using namespace std;
     cin.tie(0);                   \
     cout.tie(0);
 int tc, n;
-string a,b;
+string a, b;
 int solve()
 {
-    int res=0;
-    FOR(i,0,n-1)
-    if(i<n && a[i]!=b[i] && a[i+1]!=b[i+1] && a[i]==b[i+1])
+    int res = 0;
+    FOR(i, 0, n - 1)
+    if (i < n && a[i] != b[i] && a[i + 1] != b[i + 1] && a[i] == b[i + 1])
         res++, i++;
-    else if(a[i]!=b[i])
+    else if (a[i] != b[i])
         res++;
     return res;
 }
@@ -24,7 +24,7 @@ int solve()
 int main(int argc, char const *argv[])
 {
     iosb;
-    cin>>n>>a>>b;
-    cout<<solve()<<endl;
+    cin >> n >> a >> b;
+    cout << solve() << endl;
     return 0;
 }
