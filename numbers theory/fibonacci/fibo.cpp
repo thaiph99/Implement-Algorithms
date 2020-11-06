@@ -11,7 +11,7 @@ using namespace std;
     cout.tie(0);
 
 ull n;
-const int mod = 1e9 + 7;
+const ll mod = 998244353;
 
 struct Matrix
 {
@@ -23,7 +23,7 @@ struct Matrix
         FOR(j, 0, 1)
         FOR(k, 0, 1)
         {
-            product.a[i][k] += a[i][j] * other.a[j][k];
+            product.a[i][k] += ((a[i][j]%mod) * (other.a[j][k]%mod))%mod;
             product.a[i][k] %= mod;
         }
         return product;
@@ -50,8 +50,8 @@ int main(int argc, char const *argv[])
     cin >> n;
     Matrix a;
     a.a[0][0] = 0, a.a[0][1] = 1, a.a[1][0] = 1, a.a[1][1] = 1;
-    Matrix ans = expo_power(a, n);
-    cout << ans.a[1][0] << endl;
+    Matrix ans = expo_power(a, n+1);
+    cout << ((ans.a[1][0]%mod)*(ans.a[1][1]%mod))%mod << endl;
     return 0;
 }
 

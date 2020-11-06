@@ -9,6 +9,10 @@ using namespace std;
     cin.tie(0);                   \
     cout.tie(0);
 
+const int nax = 1e5;
+
+void build(int v, int) {}
+
 int main(int argc, char const *argv[])
 {
 
