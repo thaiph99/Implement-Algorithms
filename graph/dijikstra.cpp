@@ -23,6 +23,13 @@ vector<ll> dis(nax, LLONG_MAX);
 vector<int> par(nax, 0);
 int n, m, x, y, z;
 
+void find(int s)
+{
+    if (par[s] != 0)
+        find(par[s]);
+    cout << s << " ";
+}
+
 void dijkstraSet(int s)
 {
     dis[s] = 0;
@@ -54,6 +61,7 @@ void dijkstraPriority(int s)
     while (!que.empty())
     {
         int v = que.top().se;
+        cout << v << endl;
         int dv = que.top().fi;
         que.pop();
         if (dv != dis[v])
@@ -70,13 +78,7 @@ void dijkstraPriority(int s)
             }
         }
     }
-}
-
-void find(int s)
-{
-    if (par[s] != 0)
-        find(par[s]);
-    cout << s << " ";
+    find(n);
 }
 
 void dijikstra3(int s)
@@ -117,7 +119,7 @@ int main()
         graph[y].push_back({x, z});
     }
     // dijkstraSet(1);
-    // dijkstraPriority(1);
+    dijkstraPriority(1);
     // if (dis[n] == LLONG_MAX)
     //     return cout << -1, 0;
     // vector<int> path;
@@ -127,6 +129,6 @@ int main()
     // reverse(path.begin(), path.end());
     // for (auto e : path)
     //     cout << e << " ";
-    dijikstra3(1);
+    // dijikstra3(1);
     return 0;
 }
