@@ -46,7 +46,6 @@ int main(int argc, char const *argv[])
     FOR(i, 1, n)
     if (!visited[i])
         dfs(i), cnt1++;
-    // dfs(i), check[i] = 1;
 
     FOR(i, 1, n + 1)
     visited[i] = 0;

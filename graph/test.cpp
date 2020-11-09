@@ -18,8 +18,17 @@ using namespace std;
 
 /* ------------------------------------------------ */
 
+void test(int a = 1)
+{
+    cout << a << endl;
+    if (a == 10)
+        return;
+    test(a + 1);
+}
+
 int main()
 {
+    test(2);
     string s;
     cin >> s;
     int ans = 0, cnt = 5;
