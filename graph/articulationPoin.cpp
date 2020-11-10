@@ -12,55 +12,43 @@ using namespace std;
 
 int n, m, x, y;          // number of nodes
 vector<vector<int>> adj; // adjacency list of graph
-
 vector<bool> visited;
 vector<int> tin, low;
 int timer;
 
-void show()
-{
-    cout << "index : ";
-    FOR(i, 1, n)
-    cout << i << " ";
-    cout << endl;
-    cout << "low   : ";
-    FOR(i, 1, n)
-    cout << low[i] << " ";
-    cout << endl;
-    cout << "tin   : ";
-    FOR(i, 1, n)
-    cout << tin[i] << " ";
-    cout << endl;
-}
-
-void dfs(int v, int p)
+void dfs(int v, int p = -1)
 {
     visited[v] = true;
-    tin[v] = low[v] = ++timer;
+    tin[v] = low[v] = timer++;
+    int children = 0;
     for (int to : adj[v])
     {
         if (to == p)
             continue;
         if (visited[to])
+        {
             low[v] = min(low[v], tin[to]);
+        }
         else
         {
             dfs(to, v);
             low[v] = min(low[v], low[to]);
-            if (low[to] > tin[v])
-                cout << "bridge : " << v << "-" << to << endl;
+            if (low[to] >= tin[v] && p != -1)
+                cout << "point : " << v << endl;
+            ++children;
         }
-        cout << p << "->" << v << "->" << to << endl;
-        cout << v << endl;
-        show();
     }
+    if (p == -1 && children > 1)
+        cout << "point : " << v << endl;
 }
 
-void find_bridges()
+void find_cutpoints()
 {
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < n; ++i)
+    {
         if (!visited[i])
-            dfs(1, 1);
+            dfs(i);
+    }
 }
 
 int main(int argc, char const *argv[])
@@ -79,6 +67,6 @@ int main(int argc, char const *argv[])
         adj[x].push_back(y);
         adj[y].push_back(x);
     }
-    find_bridges();
+    find_cutpoints();
     return 0;
 }
