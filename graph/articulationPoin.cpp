@@ -16,6 +16,22 @@ vector<bool> visited;
 vector<int> tin, low;
 int timer;
 
+void show()
+{
+    cout << "index : ";
+    FOR(i, 1, n)
+    cout << i << " ";
+    cout << endl;
+    cout << "low   : ";
+    FOR(i, 1, n)
+    cout << low[i] << " ";
+    cout << endl;
+    cout << "tin   : ";
+    FOR(i, 1, n)
+    cout << tin[i] << " ";
+    cout << endl;
+}
+
 void dfs(int v, int p = -1)
 {
     visited[v] = true;

@@ -2,15 +2,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// by thaiph99
 #define FOR(i, a, b) for (int i = a; i <= b; i++)
 #define FORR(i, a, b) for (int i = a; i >= b; i--)
 #define ll long long
-#define pii pair<ll, ll>
-#define fi first
-#define se second
-#define pus push_back
-#define pop pop_back
 #define iosb                      \
     ios_base::sync_with_stdio(0); \
     cin.tie(0);                   \
@@ -18,35 +12,62 @@ using namespace std;
 
 /* ------------------------------------------------ */
 
-void test(int a = 1)
+const int nax = 1e5;
+vector<int> g[nax], used(nax), low(nax), tin(nax);
+int cutPoi, bri, t, n, m, u, v;
+set<int> cutPoint;
+
+void dfs(int v, int p = -1)
 {
-    cout << a << endl;
-    if (a == 10)
-        return;
-    test(a + 1);
+    used[v] = 1;
+    tin[v] = low[v] = t++;
+    int children = 0;
+    for (int to : g[v])
+    {
+        if (to == p)
+            continue;
+        if (used[to])
+        {
+            low[v] = min(low[v], tin[to]);
+        }
+        else
+        {
+            dfs(to, v);
+            low[v] = min(low[v], low[to]);
+            if (low[to] > tin[v])
+                bri++;
+            if (low[to] >= tin[v] && p != -1)
+            {
+                cutPoi++;
+                cutPoint.insert(v);
+                // cout << "point : " << v << endl;
+            }
+            ++children;
+        }
+    }
+    if (p == -1 && children > 1)
+    {
+        cutPoint.insert(v);
+        cutPoi++;
+        // cout << "point : " << v << endl;
+    }
 }
 
 int main()
 {
-    test(2);
-    string s;
-    cin >> s;
-    int ans = 0, cnt = 5;
-    FOR(i, 0, s.length() - 2)
+    iosb;
+    freopen("INPUT.INP", "r", stdin);
+    cin >> n >> m;
+    FOR(i, 1, m)
     {
-        if (cnt == 0)
-        {
-            ans++, cnt = 5;
-            cout << i << endl;
-        }
-        if (s[i] == s[i + 1])
-            cnt--;
-        else
-        {
-            cnt = 5, ans++;
-            cout << i << endl;
-        }
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
     }
-    cout << ans + 1 << endl;
+    FOR(i, 1, n)
+    if (!used[i])
+        dfs(i);
+
+    cout << cutPoint.size() << " " << bri << endl;
     return 0;
 }
