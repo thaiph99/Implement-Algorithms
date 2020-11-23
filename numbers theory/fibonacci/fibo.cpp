@@ -56,7 +56,7 @@ int main(int argc, char const *argv[])
 }
 
 /*
-submit in 
+submit in
 https://codeforces.com/gym/102644
 https://dmoj.ca/problem/fibonacci
 */

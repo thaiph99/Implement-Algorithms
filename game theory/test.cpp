@@ -4,47 +4,34 @@ using namespace std;
 #define ll long long
 #define FOR(i, a, b) for (ll i = a; i <= (ll)(b); i++)
 #define FORR(i, a, b) for (ll i = a; i >= (ll)(b); i--)
-#define iosb                      \
-    ios_base::sync_with_stdio(0); \
-    cin.tie(0);                   \
-    cout.tie(0);
+#define iosb  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
-void player_1()
-{
-    cout << "Ashishgup" << endl;
-}
+int t,n,a[4];
 
-void player_2()
+bool solve()
 {
-    cout << "FastestFinger" << endl;
+    int xorSum = a[1];
+    FOR(i,1,3)
+    xorSum^=a[i];
+    xorSum^=a[3]-a[2];
+    xorSum^=a[3]-a[1];
+    xorSum^=a[2]-a[1];
+    return xorSum;
 }
-
-bool isPrime(int n)
-{
-    for (int i = 2; i * i <= n; i++)
-        if (n % i == 0)
-            return 0;
-    return 1;
-}
-int tc, n;
 
 int main()
 {
-    cin >> tc;
-    FOR(it, 1, tc)
+    iosb;
+    freopen("INPUT.INP", "r", stdin);
+    cin>>t;
+    while(t--)
     {
-        cin >> n;
-        bool lose = (n == 1);
-        if (n > 2 && n % 2 == 0)
-        {
-            if ((n & (n - 1)) == 0)
-                lose = 1;
-            else if (n % 4 != 0 && isPrime(n / 2))
-                lose = 1;
-        }
-        if (lose)
-            player_2();
+        cin>>a[1]>>a[2]>>a[3];
+        sort(a+1,a+4);
+        if(solve())
+            cout<<1<<endl;
         else
-            player_1();
+            cout<<0<<endl;
     }
+    return (0);
 }

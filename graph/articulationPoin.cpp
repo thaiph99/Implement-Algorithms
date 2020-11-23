@@ -10,11 +10,38 @@ using namespace std;
     cin.tie(0);                   \
     cout.tie(0);
 
-int n, m, x, y;          // number of nodes
+void is_cutPoint(int v)
+{
+    cout << "Point : " << v << endl;
+}
+
+const int nax = 1e6;
+int n, m, x, y, timer;   // number of nodes
 vector<vector<int>> adj; // adjacency list of graph
-vector<bool> visited;
-vector<int> tin, low;
-int timer;
+vector<int> visited(nax, -1), tin(nax, -1), low(nax, -1);
+void dfs(int v, int p = -1)
+{
+    visited[v] = true;
+    tin[v] = low[v] = timer++;
+    int children = 0;
+    for (int to : adj[v])
+    {
+        if (to == p)
+            continue;
+        if (visited[to])
+            low[v] = min(low[v], tin[to]);
+        else
+        {
+            dfs(to, v);
+            low[v] = min(low[v], low[to]);
+            if (low[to] >= tin[v] && p != -1)
+                is_cutPoint(v);
+            ++children;
+        }
+    }
+    if (p == -1 && children > 1)
+        is_cutPoint(v);
+}
 
 void show()
 {
@@ -30,32 +57,6 @@ void show()
     FOR(i, 1, n)
     cout << tin[i] << " ";
     cout << endl;
-}
-
-void dfs(int v, int p = -1)
-{
-    visited[v] = true;
-    tin[v] = low[v] = timer++;
-    int children = 0;
-    for (int to : adj[v])
-    {
-        if (to == p)
-            continue;
-        if (visited[to])
-        {
-            low[v] = min(low[v], tin[to]);
-        }
-        else
-        {
-            dfs(to, v);
-            low[v] = min(low[v], low[to]);
-            if (low[to] >= tin[v] && p != -1)
-                cout << "point : " << v << endl;
-            ++children;
-        }
-    }
-    if (p == -1 && children > 1)
-        cout << "point : " << v << endl;
 }
 
 void find_cutpoints()
