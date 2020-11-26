@@ -16,12 +16,10 @@ int calMex(set<int> s)
 {
     int ans =0;
     for(auto &i:s)
-    {
         if(i!=ans)
             return ans;
         else
             ans++;
-    }
     return ans;
 }
 
@@ -51,16 +49,15 @@ int main(int argc, char const *argv[])
 {
     iosb;
 //    freopen("INPUT.INP", "r", stdin);
-    int t, n;
+    int t, n, m;
     cin>>t;
     FOR(it,1,t)
     {
-        reset();
-        cin>>n;
-        if(grundy(n))
-            cout<<"First"<<endl;
+        cin>>n>>m;
+        if(m==1 || n%2==0)
+            cout<<2<<endl;
         else
-            cout<<"Second"<<endl;
+            cout<<1<<endl;
     }
     return 0;
 }

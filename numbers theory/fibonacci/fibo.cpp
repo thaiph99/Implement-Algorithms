@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ull unsigned long long
-#define ll long long int
+#define ll unsigned long long
 #define FOR(i, a, b) for (ll i = a; i <= b; i++)
 #define FORR(i, a, b) for (ll i = a; i >= b; i--)
 #define iosb                      \
@@ -10,7 +10,7 @@ using namespace std;
     cin.tie(0);                   \
     cout.tie(0);
 
-ull n;
+ull n, t;
 const ll mod = 998244353;
 
 struct Matrix
@@ -47,11 +47,15 @@ Matrix expo_power(Matrix a, ull k)
 
 int main(int argc, char const *argv[])
 {
-    cin >> n;
+    cin >> t;
     Matrix a;
     a.a[0][0] = 0, a.a[0][1] = 1, a.a[1][0] = 1, a.a[1][1] = 1;
-    Matrix ans = expo_power(a, n+1);
-    cout << ((ans.a[1][0]%mod)*(ans.a[1][1]%mod))%mod << endl;
+    while(t--)
+    {
+        cin>>n;
+        Matrix ans = expo_power(a, n);
+        cout << ((ans.a[1][0]%mod)+(ans.a[1][1]%mod))%mod << endl;
+    }
     return 0;
 }
 

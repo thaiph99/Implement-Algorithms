@@ -16,12 +16,10 @@ int calMex(set<int> s)
 {
     int ans =0;
     for(auto &i:s)
-    {
         if(i!=ans)
             return ans;
         else
             ans++;
-    }
     return ans;
 }
 

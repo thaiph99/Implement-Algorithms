@@ -29,18 +29,20 @@ int main()
         return cout << "0 1 1 1", 0;
     }
     ll l = 0, r = 1e9, m;
-    bool an1 = ir(0, 0), an2, xuong;
+    bool an1 = ir(0, 1), an2, xuong;
 
     for (int i = 2; i <= n; i++)
     {
         m = (l + r) / 2;
         an2 = ir(m, 1);
         if (an2 == an1)
-            l = m;
+            l = m, xuong = 1;
         else
-            r = m;
-        an2 = an1;
+            r = m, xuong = 0;
+        an2 = 1;
+        // cout << l << ":" << r << endl;
     }
-    cout << l << " " << 0 << " " << r << " " << endl;
+    (an2 == an1 && xuong) ? m++ : m--;
+    cout << l << " " << 0 << " " << r << " " << 2 << endl;
     return 0;
 }
