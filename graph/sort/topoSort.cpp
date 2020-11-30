@@ -25,10 +25,6 @@ void DFS(int u)
     topo.push_back(u);
 }
 
-void topoSort()
-{
-}
-
 int main(int argc, char const *argv[])
 {
     iosb;
