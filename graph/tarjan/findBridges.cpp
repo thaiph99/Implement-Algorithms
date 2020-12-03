@@ -50,9 +50,6 @@ void dfs(int v, int p)
             if (low[to] > tin[v])
                 cout << "bridge : " << v << "-" << to << endl;
         }
-        cout << p << "->" << v << "->" << to << endl;
-        cout << v << endl;
-        show();
     }
 }
 

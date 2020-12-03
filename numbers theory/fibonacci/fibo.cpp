@@ -32,30 +32,25 @@ struct Matrix
 
 Matrix expo_power(Matrix a, ull k)
 {
-    Matrix ans;
-    FOR(i, 0, 1)
-    ans.a[i][i] = 1;
-    while (k > 0)
-    {
-        if (k % 2)
-            ans = ans * a;
-        a = a * a;
-        k /= 2;
-    }
-    return ans;
+    if(k==1)
+        return a;
+    Matrix t = expo_power(a, k/2);
+    if(k&1)
+        t=t*a;
+    return t;
 }
 
 int main(int argc, char const *argv[])
 {
-    cin >> t;
+//    cin >> t;
     Matrix a;
-    a.a[0][0] = 0, a.a[0][1] = 1, a.a[1][0] = 1, a.a[1][1] = 1;
-    while(t--)
-    {
+    a.a[0][0] = 0, a.a[0][1] = 1, a.a[1][0] = 1, a.a[1][1] = 0;
+//    while(t--)
+//    {
         cin>>n;
         Matrix ans = expo_power(a, n);
-        cout << ((ans.a[1][0]%mod)+(ans.a[1][1]%mod))%mod << endl;
-    }
+        cout << (ans.a[1][0]%mod) << endl;
+//    }
     return 0;
 }
 
