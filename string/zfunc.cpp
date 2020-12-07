@@ -2,71 +2,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define FOR(i, a, b) for (ll i = a; i <= (ll)(b); i++)
-#define FORR(i, a, b) for (ll i = a; i >= (ll)(b); i--)
-#define iosb                      \
-    ios_base::sync_with_stdio(0); \
-    cin.tie(0);                   \
-    cout.tie(0);
 
-ll n, z[100005];
-string a;
-string b;
-void Z_function(string a, ll n, ll f[])
+string a, b;
+
+vector<int> zFuc(string s)
 {
-    ll l = -1, r = -1;
-    f[0] = 0;
-    FOR(i, 1, n - 1)
+    int n= int(s.length());
+    vector<int> z(n+9);
+    for(int i=1, l=0, r=0; i<n; i++)
     {
-        if (i > r)
-        {
-            l = i;
-            r = i - 1;
-            while (r < n - 1 && a[r + 1] == a[r - l + 1])
-                r++;
-            f[i] = r - l + 1;
-        }
-        else
-        {
-            if (f[i - l] < r - i + 1)
-                f[i] = f[i - l];
-            else
-            {
-                l = i;
-                while (r < n - 1 && a[r + 1] == a[r - l + 1])
-                    r++;
-                f[i] = r - l + 1;
-            }
-        }
+        if(i<=r)
+            z[i]=min(r-i+1, z[i-l]);
+        while(i+z[i]<n && s[z[i]]==s[i+z[i]])
+            z[i]++;
+        if(i+z[i]-1>r)
+            l=i, r=i+z[i]-1;
+        cout<<i<<":"<<z[i]<<":"<<l<<":"<<r<<endl;
     }
+    return z;
 }
 
-void showZ(int n)
+void showZ(vector<int> z)
 {
-    FOR(i, 0, n - 1)
-    cout << z[i] << " ";
-    cout << endl;
+    for(auto &i : z)
+        cout <<i<<" ";
+    cout<<endl;
 }
 
 int main()
 {
-    iosb;
-    freopen("INPUT.INP", "r", stdin);
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> a;
     cin >> b;
     string s = b + "$" + a;
-    cout << s << endl;
-    n = s.length();
-    Z_function(s, n, z);
-    int ans = -1;
-    FOR(i, 1, n)
+    ll n = s.length();
+    vector<int> z = zFuc(s);
+    showZ(z);
+    for(int i=0;i<n;i++)
     {
-        if (z[n - i] == i)
-            ans = i;
+        if(z[i]==b.length())
+            cout<<i-b.length()<<" ";
     }
-    if (ans != -1)
-        cout << string(begin(a), begin(a) + a.length() - ans) << b << endl;
-    else
-        cout << a << b << endl;
     return 0;
 }

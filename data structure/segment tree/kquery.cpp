@@ -28,12 +28,12 @@ void build(int a[], int v, int tl, int tr)
 
 int query(int v, int tl, int tr, int l, int r)
 {
-    if (l > r)
+    if(l>r)
         return 0;
-    if (l == tl && r == tr)
+    if(l==tl && r==tr)
         return t[v];
-    int tm = (tr + tl) / 2;
-    return query(v * 2, tl, tm, l, min(r, tm)) + query(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
+    int tm = (tr+tl)/2;
+    return query(2*v, tl, tm, l, min(tm, r))+query(2*v+1, tm+1, tr, max(l, tm+1), r);
 }
 
 void show(int a[], int n)
@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
 2 4 1
 4 4 4
 1 5 2
-=> 
+=>
 2
 0
 3
